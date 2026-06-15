@@ -24,8 +24,9 @@ export default function Dashboard() {
   const { searchQuery } = useApp();
   const { results, highlighted } = useSearch(searchQuery);
 
+  const resultIds = new Set(results.map(t => t.id));
   const filtered = searchQuery
-    ? tutorials.filter(t => results.includes(t))
+    ? tutorials.filter(t => resultIds.has(t.id))
     : tutorials;
 
   const displayTopics = beginnerMode

@@ -8,7 +8,7 @@ import Dashboard from './pages/Dashboard';
 import FlowWorkspace from './pages/FlowWorkspace';
 import CheatSheet from './pages/CheatSheet';
 import Errors from './pages/Errors';
-
+import Queries from './pages/Queries';
 
 function App() {
   const [onboardingDone, setOnboardingDone] = useState(() => {
@@ -60,7 +60,14 @@ function App() {
               </Layout>
             }
           />
-
+          <Route
+            path="/queries"
+            element={
+              <Layout>
+                <Queries />
+              </Layout>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </AppProvider>

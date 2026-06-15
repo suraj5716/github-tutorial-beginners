@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import {
   BookOpen, LayoutDashboard, GitBranch, Terminal,
-  AlertTriangle, Moon, Sun, GraduationCap,
+  AlertTriangle, HelpCircle, Moon, Sun, GraduationCap,
   ChevronLeft, ChevronRight,
 } from 'lucide-react';
 import { useState } from 'react';
@@ -13,6 +13,7 @@ const links = [
   { to: '/workspace', icon: GitBranch, label: 'Flow Workspace' },
   { to: '/cheatsheet', icon: Terminal, label: 'Cheat Sheet' },
   { to: '/errors', icon: AlertTriangle, label: 'Common Errors' },
+  { to: '/queries', icon: HelpCircle, label: 'Queries' },
 
 ];
 
