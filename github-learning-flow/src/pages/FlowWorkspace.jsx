@@ -4,13 +4,13 @@ import { motion } from 'framer-motion';
 import { tutorials, topicCategories } from '../data/tutorials';
 import { useApp } from '../context/AppContext';
 import FlowDiagram from '../components/FlowDiagram';
-import { Copy, Check, ChevronDown, ChevronUp, BookOpen, CheckCircle, Circle, ArrowLeft, Terminal } from 'lucide-react';
+import { Copy, Check, ChevronDown, ChevronUp, BookOpen, ArrowLeft, Terminal } from 'lucide-react';
 
 export default function FlowWorkspace() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const topicId = searchParams.get('topic');
-  const { markComplete, isComplete, beginnerMode } = useApp();
+  const { beginnerMode } = useApp();
 
   const [expandedTutorials, setExpandedTutorials] = useState({});
   const [copied, setCopied] = useState({});
@@ -47,46 +47,19 @@ export default function FlowWorkspace() {
             Back to all topics
           </button>
 
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-3">
-              <div
-                className="w-3 h-3 rounded-full"
-                style={{ background: activeTutorial.color }}
-              />
-              <div>
-                <h1 className="text-xl font-bold" style={{ color: 'var(--color-text)' }}>
-                  {activeTutorial.title}
-                </h1>
-                <p className="text-xs mt-1" style={{ color: 'var(--color-text-secondary)' }}>
-                  {activeTutorial.shortDesc}
-                </p>
-              </div>
+          <div className="flex items-center gap-3 mb-6">
+            <div
+              className="w-3 h-3 rounded-full"
+              style={{ background: activeTutorial.color }}
+            />
+            <div>
+              <h1 className="text-xl font-bold" style={{ color: 'var(--color-text)' }}>
+                {activeTutorial.title}
+              </h1>
+              <p className="text-xs mt-1" style={{ color: 'var(--color-text-secondary)' }}>
+                {activeTutorial.shortDesc}
+              </p>
             </div>
-
-            <button
-              onClick={() => {
-                isComplete(activeTutorial.id)
-                  ? null
-                  : markComplete(activeTutorial.id);
-              }}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-medium transition-all ${
-                isComplete(activeTutorial.id) ? 'opacity-60' : ''
-              }`}
-              style={{
-                background: isComplete(activeTutorial.id)
-                  ? 'var(--color-success)20'
-                  : 'var(--color-primary)',
-                color: isComplete(activeTutorial.id)
-                  ? 'var(--color-success)'
-                  : 'white',
-              }}
-            >
-              {isComplete(activeTutorial.id) ? (
-                <><CheckCircle size={14} /> Completed</>
-              ) : (
-                <><Circle size={14} /> Mark Complete</>
-              )}
-            </button>
           </div>
 
           <div className="grid lg:grid-cols-5 gap-6">
@@ -208,7 +181,6 @@ export default function FlowWorkspace() {
       <div className="grid gap-3">
         {filteredTutorials.map((tutorial) => {
           const cat = topicCategories.find(c => c.id === tutorial.category);
-          const completed = isComplete(tutorial.id);
           const expanded = expandedTutorials[tutorial.id];
 
           return (
@@ -225,11 +197,6 @@ export default function FlowWorkspace() {
                 onClick={() => toggleExpand(tutorial.id)}
                 className="w-full flex items-center gap-4 p-4 text-left"
               >
-                {completed ? (
-                  <CheckCircle size={18} style={{ color: 'var(--color-success)' }} />
-                ) : (
-                  <Circle size={18} style={{ color: 'var(--color-border)' }} />
-                )}
                 <div
                   className="w-2.5 h-2.5 rounded-full shrink-0"
                   style={{ background: tutorial.color }}

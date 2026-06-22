@@ -1,11 +1,9 @@
 import Sidebar from './Sidebar';
 import SearchBar from './SearchBar';
-import { useApp } from '../context/AppContext';
 import { Menu } from 'lucide-react';
 import { useState } from 'react';
 
 export default function Layout({ children }) {
-  const { searchQuery, setSearchQuery } = useApp();
   const [mobileSidebar, setMobileSidebar] = useState(false);
 
   return (
@@ -45,12 +43,6 @@ export default function Layout({ children }) {
           <div className="flex-1 flex justify-center md:justify-end">
             <SearchBar />
           </div>
-
-          {searchQuery && (
-            <div className="hidden md:block text-xs" style={{ color: 'var(--color-text-secondary)' }}>
-              {searchQuery}
-            </div>
-          )}
         </header>
 
         <div className="flex-1 overflow-auto">

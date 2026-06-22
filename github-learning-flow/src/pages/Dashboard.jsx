@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { tutorials, topicCategories } from '../data/tutorials';
 import { useApp } from '../context/AppContext';
 import { useSearch } from '../hooks/useSearch';
-import { CheckCircle, Circle, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 const container = {
   hidden: { opacity: 0 },
@@ -20,7 +20,7 @@ const item = {
 
 export default function Dashboard() {
   const navigate = useNavigate();
-  const { isComplete, beginnerMode } = useApp();
+  const { beginnerMode } = useApp();
   const { searchQuery } = useApp();
   const { results, highlighted } = useSearch(searchQuery);
 
@@ -64,7 +64,6 @@ export default function Dashboard() {
       >
         {displayTopics.map((tutorial) => {
           const cat = topicCategories.find(c => c.id === tutorial.category);
-          const completed = isComplete(tutorial.id);
           const isHighlighted = highlighted.includes(tutorial.id);
 
           return (
@@ -86,20 +85,6 @@ export default function Dashboard() {
               whileHover={{ y: -2 }}
             >
               <div className="flex items-center gap-4">
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    completed ? null : null;
-                  }}
-                  className="shrink-0"
-                >
-                  {completed ? (
-                    <CheckCircle size={20} style={{ color: 'var(--color-success)' }} />
-                  ) : (
-                    <Circle size={20} style={{ color: 'var(--color-border)' }} />
-                  )}
-                </button>
-
                 <div
                   className="w-2.5 h-2.5 rounded-full shrink-0"
                   style={{ background: tutorial.color }}
